@@ -25,6 +25,10 @@ print(emotion_detector("I love this new technology."))
 | I am so sad about this | sadness |
 | I am really afraid that this will happen | fear |
 
+en despliegue
+
+I love my life
+
 En español
 
 ```python
@@ -40,3 +44,6 @@ print(emotion_detector("Odio trabajar muchas horas"))
 | Estoy tan triste por esto | tristeza |
 | Tengo mucho miedo de que esto suceda | miedo |
 
+en despliegue
+
+Amo mi vida
