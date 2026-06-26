@@ -14,10 +14,19 @@ def emotion_detector(text_to_analyze):
     # Send the POST request to the Watson NLP API
     response = requests.post(url, json = myobj, headers = headers)
     
-    # Convert the response text into a dictionary
-    formatted_response = json.loads(response.text)
+    # Check if the server response indicates a bad/blank request (status code 400)
+    if response.status_code == 400:
+        return {
+            'anger': None,
+            'disgust': None,
+            'fear': None,
+            'joy': None,
+            'sadness': None,
+            'dominant_emotion': None
+        }
     
-    # Extract the emotion scores dictionary
+    # If successful, parse the response
+    formatted_response = json.loads(response.text)
     emotions = formatted_response['emotionPredictions'][0]['emotion']
     
     anger_score = emotions['anger']
@@ -37,7 +46,7 @@ def emotion_detector(text_to_analyze):
     dominant_emotion = max(emotion_list, key=emotion_list.get)
     
     # Format the required output dictionary
-    output_format = {
+    return {
         'anger': anger_score,
         'disgust': disgust_score,
         'fear': fear_score,
@@ -45,5 +54,3 @@ def emotion_detector(text_to_analyze):
         'sadness': sadness_score,
         'dominant_emotion': dominant_emotion
     }
-    
-    return output_format
